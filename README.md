@@ -1,6 +1,6 @@
-Weather App
-IT'S DEMO !!!
-Technology: React, Redux, Material-UI, used OpenWeather API.
+Weather App</br>
+IT'S DEMO !!!</br>
+Technology: React, Redux, Material-UI, used OpenWeather API.</br>
 
 What is done:
 1. Brief information about the weather in the city.
@@ -11,11 +11,12 @@ it on the screen.
 entered cities, the weather data is updated).
 
 On development stage:
-4. When you click on "Learn More" button - display detailed information / go to
+1. When you click on "Learn More" button - display detailed information / go to
 page with detailed information.
-5. On the detail page, the button: refresh
+2. On the detail page, the button: refresh
 weather data now. When pressed, update the weather data of the city.
-6. Adding a new query for the hourly forecast for the current day.
-7.Add Google Map API.
-
+3. Adding a new query for the hourly forecast for the current day.
+4.Add Google Map API.
+</br>
+</br>
 Refactoring code...
