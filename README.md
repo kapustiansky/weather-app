@@ -16,7 +16,7 @@ page with detailed information.
 2. On the detail page, the button: refresh
 weather data now. When pressed, update the weather data of the city.
 3. Adding a new query for the hourly forecast for the current day.
-4.Add Google Map API.
+4. Add Google Map API.
 </br>
 </br>
 Refactoring code...
