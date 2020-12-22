@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
 
 import { compose } from '../../utils';
 import CityListItem from '../city-list-item';
@@ -14,13 +14,13 @@ const CityList = ({ city, deleteCityItem }) => {
     return ( 
         <Grid container spacing={2} justify="center">
             {
-                city.map((cityData) => {    
-                	return (
-                	    <Grid key={cityData.id} item xs={6} sm={3} lg={2}>
-                	        <CityListItem cityData={cityData} deleteCityItem={() => deleteCityItem(cityData.id)}/>
-                	    </Grid>
-                	);
-                })
+            city.map((cityData) => {    
+            	return (
+            	    <Grid key={cityData.id} item xs={6} sm={3} lg={2}>
+            	        <CityListItem cityData={cityData} deleteCityItem={() => deleteCityItem(cityData.id)}/>
+            	    </Grid>
+            	);
+            })
             }
             <Grid style={{ padding: 20 }} item xs={12}>
                 <CityAddForm />

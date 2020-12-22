@@ -1,30 +1,32 @@
 const initialState = {
 	city: [],
 	loading: true,
-	error: null
+	error: null,
+	myCityWeather: {}
 };
 
 const reducer = (state = initialState, action) => {
-	
-	//console.log(action.type)
 	switch (action.type) {
 		case 'FETCH_CITY_REQUESTED':
 			return {
 				city: [],
 				loading: true,
-				error: null
+				error: null,
+				myCityWeather: {}
 			};
 		case 'FETCH_CITY_LOADED':
 			return {
 				city: action.payload,
 				loading: false,
-				error: null
+				error: null,
+				myCityWeather: {}
 			};
 		case 'FETCH_CITY_FAILURE':
 			return {
 				city: [],
 				loading: false,
-				error: action.payload
+				error: action.payload,
+				myCityWeather: {}
 			};
 		case 'ITEM_ADDED_TO_CITY':
 			const newCityItem = action.payload;
@@ -41,6 +43,18 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				city: newArr
+			};
+		case 'FETCH_MY_CITY_WEATHER_REQUESTED':		
+			return {
+				...state,
+				loading: true,
+				myCityWeather: {}
+			};
+		case 'FETCH_MY_CITY_WEATHER_LOADED':
+			return {
+				...state,
+				loading: false,
+				myCityWeather: action.payload
 			};
 
 		default:

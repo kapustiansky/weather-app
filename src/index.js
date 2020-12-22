@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 import App from './components/app';
 import ErrorBoundry from './components/error-boundry';
@@ -17,9 +17,9 @@ ReactDOM.render(
 	<Provider store={store}>
 		<ErrorBoundry>
 			<WeatherServiceProvider value={weatherService}>
-				<Router>
+				<HashRouter>
 					<App />
-				</Router>
+				</HashRouter>
 			</WeatherServiceProvider>
 		</ErrorBoundry>
 	</Provider>,

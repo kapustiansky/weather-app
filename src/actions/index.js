@@ -39,6 +39,26 @@ export const deleteItem = (deleteId) => {
 	};
 };
 
+const myCityWeatherLoaded = (myWeather) => {
+	return {
+		type: 'FETCH_MY_CITY_WEATHER_LOADED',
+		payload: myWeather
+	};
+};
+
+const myCityWeatherRequested = () => {
+	return {
+		type: 'FETCH_MY_CITY_WEATHER_REQUESTED'
+	}
+};
+
+const fetchMyCityWeather = (weatherService, dispatch) => () => {
+	dispatch(myCityWeatherRequested());
+	weatherService.getMyCityWeather()
+		.then((data) => dispatch(myCityWeatherLoaded(data)))
+}
+
 export {
-	fetchCitis
+	fetchCitis,
+	fetchMyCityWeather
 };

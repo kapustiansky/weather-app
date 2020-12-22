@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { 
 	makeStyles, 
@@ -10,7 +11,11 @@ import {
 	Box, 
 	IconButton
 } from '@material-ui/core';
-//import AutorenewIcon from '@material-ui/icons/Autorenew';
+import { Link } from 'react-router-dom';
+
+import { withWeatherService } from '../hoc';
+import { fetchMyCityWeather } from '../../actions';
+import { compose } from '../../utils';
 
 const useStyles = makeStyles({
     root: {
@@ -19,7 +24,18 @@ const useStyles = makeStyles({
 	  	'linear-gradient(0deg, rgb(255 255 255 / 0%) 0%, #f7f7f7 50%, rgb(255 255 255 / 0%) 100%)',
 	  margin: 'auto',
 	  boxShadow: 'none',
+	  opacity: 0,
+	  animation: '$slide-bottom-cd 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.1s both'
 	},
+	'@keyframes slide-bottom-cd': {
+        '0%': {
+            transform: 'translateY(-200px)',
+        },
+        '100%': {
+            transform: 'translateY(0px)',
+            opacity: 1,
+        },
+      },
 	minMax: {
 		width: '60%',
 	},
@@ -45,16 +61,25 @@ const useStyles = makeStyles({
 	}
   });
 
-const CityListItem = ({cityData, deleteCityItem}) => {
-	const { name, t, feels_like, temp_min, temp_max, icon } = cityData;
+const CityListItem = ({cityData, deleteCityItem, fetchMyCityWeather}) => {
+	const {coord, name, t, feels_like, temp_min, temp_max, icon } = cityData;
 	const classes = useStyles();
 
 	const deleteItem = () => {
 		const storageArr = JSON.parse(localStorage.getItem('citisData'));
 		const newStorageArr = storageArr.filter((item) => item.id !== deleteCityItem().payload);
 		localStorage.setItem('citisData', JSON.stringify(newStorageArr));		
-		//return deleteCityItem;
-	}	
+	}
+
+	const sessionStoragePushitem = () => {
+		const sesStorData = {
+			...coord,
+			name: name
+		}
+		sessionStorage.setItem('myCity', JSON.stringify(sesStorData))
+			fetchMyCityWeather();
+	}
+
     return (
 		<Card className={classes.root}>
 			<CardContent>
@@ -81,8 +106,12 @@ const CityListItem = ({cityData, deleteCityItem}) => {
 					</Typography>
 				</Box>
 			</CardContent>
-			<CardActions className={classes.buttons}>
-				<Button size="small">Learn More</Button>
+			<CardActions className={classes.buttons}>			
+				<Link to="/cart" onClick={sessionStoragePushitem}>
+					<Button size="small">
+						Detail inf...
+					</Button>
+				</Link>
 				<IconButton onClick={deleteItem} aria-label="delete" size="small">
 					<HighlightOffIcon fontSize="small"/>
         		</IconButton>
@@ -91,4 +120,17 @@ const CityListItem = ({cityData, deleteCityItem}) => {
     );
 }
 
-export default CityListItem;
+const mapSrateToProps = ({ myCityWeather, loading }) => {
+    return { myCityWeather, loading }
+}
+
+const mapDispatchToProps = (dispatch, { weatherService }) => {
+    return {
+        fetchMyCityWeather: fetchMyCityWeather(weatherService, dispatch)
+    }
+}
+
+export default compose(
+	withWeatherService(),
+	connect(mapSrateToProps, mapDispatchToProps)
+)(CityListItem);

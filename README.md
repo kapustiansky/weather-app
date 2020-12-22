@@ -1,6 +1,5 @@
 Weather App</br>
-IT'S DEMO !!!</br>
-Technology: React, Redux, Material-UI, used OpenWeather API.</br>
+Technology: React, Redux, Material-UI, used OpenWeather API, used Google Map API.</br>
 
 What is done:
 1. Brief information about the weather in the city.
