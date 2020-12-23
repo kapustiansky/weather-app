@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     }
   });
 
-const MyCityHeader = ({ dt }) => {
+const MyCityHeader = ({ dt, onRefresh }) => {
     const classes = useStyles();
     const myCityName = JSON.parse(sessionStorage.getItem('myCity'));
     const fullDate = new Date(dt * 1000);
@@ -27,7 +27,7 @@ const MyCityHeader = ({ dt }) => {
     return (
         <Box display="flex" justifyContent="space-between" alignItems="end" className={classes.box}>
             <Box display="flex" flexDirection="column" alignItems="end">
-                <IconButton aria-label="refresh" size="small">
+                <IconButton aria-label="refresh" size="small" onClick={onRefresh}>
                     <AutorenewIcon />
                 </IconButton>
                 {currentDate}

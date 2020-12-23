@@ -7,7 +7,7 @@ import {
 
 import { compose } from '../../utils';
 import { withWeatherService } from '../hoc';
-import { fetchMyCityWeather } from '../../actions';
+import { fetchMyCityWeather, fetchMyWeatherRemoved } from '../../actions';
 import Spinner from '../spinner';
 import MyCityCurrent from '../my-city-current';
 import MyCityHourly from '../my-city-hourly';
@@ -33,7 +33,7 @@ const styles = {
         },
       },
     gridItem2: {
-        padding: '5rem 2rem',
+        padding: '3rem 2rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
@@ -50,7 +50,7 @@ class MyCityContainer extends Component {
 	}
 
     render() {
-        const { myCityWeather, loading, classes } = this.props;
+        const { myCityWeather, loading, classes, onRefresh } = this.props;
         const { daily, hourly, current } = myCityWeather;
 
         if (loading) {
@@ -60,7 +60,7 @@ class MyCityContainer extends Component {
         return (
             <Grid container className={classes.gridContainer}>
                 <Grid item xs={12} md={4} className={classes.gridItem1}>
-                    <MyCityHeader dt={current.dt} />
+                    <MyCityHeader dt={current.dt} onRefresh={() => onRefresh()}/>
                     <hr/>
                     <MyCityCurrent current={current}/>
                 </Grid>
@@ -80,7 +80,8 @@ const mapSrateToProps = ({ myCityWeather, loading }) => {
 
 const mapDispatchToProps = (dispatch, { weatherService }) => {
     return {
-        fetchMyCityWeather: fetchMyCityWeather(weatherService, dispatch)
+        fetchMyCityWeather: fetchMyCityWeather(weatherService, dispatch),
+        onRefresh: fetchMyWeatherRemoved(weatherService, dispatch)
     }
 }
 
