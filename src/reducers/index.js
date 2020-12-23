@@ -30,6 +30,7 @@ const reducer = (state = initialState, action) => {
 			};
 		case 'ITEM_ADDED_TO_CITY':
 			const newCityItem = action.payload;
+			console.log(state.city)
 			return {
 				...state,
 				city: [
@@ -51,6 +52,12 @@ const reducer = (state = initialState, action) => {
 				myCityWeather: {}
 			};
 		case 'FETCH_MY_CITY_WEATHER_LOADED':
+			return {
+				...state,
+				loading: false,
+				myCityWeather: action.payload
+			};
+		case 'MY_WEATHER_REMOVED_FROM_CART':
 			return {
 				...state,
 				loading: false,

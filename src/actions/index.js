@@ -58,7 +58,21 @@ const fetchMyCityWeather = (weatherService, dispatch) => () => {
 		.then((data) => dispatch(myCityWeatherLoaded(data)))
 }
 
+const myWeatherRemovedFromCart = (newData) => {
+	return {
+	  type: 'MY_WEATHER_REMOVED_FROM_CART',
+	  payload: newData
+	};
+};
+
+const fetchMyWeatherRemoved = (weatherService, dispatch) => () => {
+	dispatch(myCityWeatherRequested());
+	weatherService.getMyCityWeather()
+		.then((data) => dispatch(myWeatherRemovedFromCart(data)))
+}
+
 export {
 	fetchCitis,
-	fetchMyCityWeather
+	fetchMyCityWeather,
+	fetchMyWeatherRemoved
 };
