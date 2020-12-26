@@ -2,12 +2,12 @@ import React from 'react';
 import CityAddForm from '../city-add-form';
 
 const ErrorIndicator = () => {
-	return ( 
+	return (
 		<>
-			<div> Error </div> 
+			<div> Error </div>
 			<CityAddForm />
 		</>
 	);
-}
+};
 
 export default ErrorIndicator;

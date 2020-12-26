@@ -2,7 +2,7 @@ const initialState = {
 	city: [],
 	loading: true,
 	error: null,
-	myCityWeather: {}
+	myWeather: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,56 +12,52 @@ const reducer = (state = initialState, action) => {
 				city: [],
 				loading: true,
 				error: null,
-				myCityWeather: {}
+				myCityWeather: {},
 			};
 		case 'FETCH_CITY_LOADED':
 			return {
 				city: action.payload,
 				loading: false,
 				error: null,
-				myCityWeather: {}
+				myCityWeather: {},
 			};
 		case 'FETCH_CITY_FAILURE':
 			return {
 				city: [],
 				loading: false,
 				error: action.payload,
-				myCityWeather: {}
+				myCityWeather: {},
 			};
-		case 'ITEM_ADDED_TO_CITY':
+		case 'ADD_TO_CITY_LIST':
 			const newCityItem = action.payload;
-			console.log(state.city)
 			return {
 				...state,
-				city: [
-					...state.city,
-					newCityItem
-				]
+				city: [...state.city, newCityItem],
 			};
-		case 'ITEM_CITY_DELETE':
+		case 'DELETE_ON_CITY_LIST':
 			const eventId = action.payload;
-			const newArr = state.city.filter((item) => item.id !== eventId)
+			const newArr = state.city.filter((item) => item.id !== eventId);
 			return {
 				...state,
-				city: newArr
+				city: newArr,
 			};
-		case 'FETCH_MY_CITY_WEATHER_REQUESTED':		
+		case 'FETCH_MY_WEATHER_REQUESTED':
 			return {
 				...state,
 				loading: true,
-				myCityWeather: {}
+				myWeather: {},
 			};
-		case 'FETCH_MY_CITY_WEATHER_LOADED':
+		case 'FETCH_MY_WEATHER_LOADED':
 			return {
 				...state,
 				loading: false,
-				myCityWeather: action.payload
+				myWeather: action.payload,
 			};
-		case 'MY_WEATHER_REMOVED_FROM_CART':
+		case 'REFRESH_MY_WEATHER':
 			return {
 				...state,
 				loading: false,
-				myCityWeather: action.payload
+				myWeather: action.payload,
 			};
 
 		default:

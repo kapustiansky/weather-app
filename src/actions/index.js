@@ -1,78 +1,73 @@
-const cityLoaded = (newCity) => {
+const cityLoaded = (city) => {
 	return {
 		type: 'FETCH_CITY_LOADED',
-		payload: newCity
+		payload: city,
 	};
 };
 
 const cityRequested = () => {
 	return {
-		type: 'FETCH_CITY_REQUESTED'
-	}
+		type: 'FETCH_CITY_REQUESTED',
+	};
 };
 
 const cityError = (error) => {
 	return {
 		type: 'FETCH_CITY_FAILURE',
-		payload: error
-	}
-}
+		payload: error,
+	};
+};
+
+const cityAdded = (newCity) => {
+	return {
+		type: 'ADD_TO_CITY_LIST',
+		payload: newCity,
+	};
+};
+
+const cityDelete = (deleteId) => {
+	return {
+		type: 'DELETE_ON_CITY_LIST',
+		payload: deleteId,
+	};
+};
 
 const fetchCitis = (weatherService, dispatch) => () => {
 	dispatch(cityRequested());
-	weatherService.getCityData()
+	weatherService
+		.getCityData()
 		.then((data) => dispatch(cityLoaded(data)))
 		.catch((err) => dispatch(cityError(err)));
-}
+};
 
-export const cityItemAdded = (newCityItem) => {
+const myWeatherRequested = () => {
 	return {
-		type: 'ITEM_ADDED_TO_CITY',
-		payload: newCityItem
+		type: 'FETCH_MY_WEATHER_REQUESTED',
 	};
 };
 
-export const deleteItem = (deleteId) => {
+const myWeatherLoaded = (myWeather) => {
 	return {
-		type: 'ITEM_CITY_DELETE',
-		payload: deleteId
+		type: 'FETCH_MY_WEATHER_LOADED',
+		payload: myWeather,
 	};
 };
 
-const myCityWeatherLoaded = (myWeather) => {
+const fetchMyWeather = (weatherService, dispatch) => () => {
+	dispatch(myWeatherRequested());
+	weatherService.getMyWeather().then((data) => dispatch(myWeatherLoaded(data)));
+};
+
+const myWeatherRefresh = (newWeather) => {
 	return {
-		type: 'FETCH_MY_CITY_WEATHER_LOADED',
-		payload: myWeather
+		type: 'REFRESH_MY_WEATHER',
+		payload: newWeather,
 	};
 };
 
-const myCityWeatherRequested = () => {
-	return {
-		type: 'FETCH_MY_CITY_WEATHER_REQUESTED'
-	}
+const fetchMyWeatherRefresh = (weatherService, dispatch) => () => {
+	dispatch(myWeatherRequested());
+	weatherService.getMyWeather().then((data) => dispatch(myWeatherRefresh(data)));
 };
 
-const fetchMyCityWeather = (weatherService, dispatch) => () => {
-	dispatch(myCityWeatherRequested());
-	weatherService.getMyCityWeather()
-		.then((data) => dispatch(myCityWeatherLoaded(data)))
-}
-
-const myWeatherRemovedFromCart = (newData) => {
-	return {
-	  type: 'MY_WEATHER_REMOVED_FROM_CART',
-	  payload: newData
-	};
-};
-
-const fetchMyWeatherRemoved = (weatherService, dispatch) => () => {
-	dispatch(myCityWeatherRequested());
-	weatherService.getMyCityWeather()
-		.then((data) => dispatch(myWeatherRemovedFromCart(data)))
-}
-
-export {
-	fetchCitis,
-	fetchMyCityWeather,
-	fetchMyWeatherRemoved
-};
+export { fetchCitis, cityAdded, cityDelete, fetchMyWeather, fetchMyWeatherRefresh };

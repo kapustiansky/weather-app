@@ -1,136 +1,121 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
-import { 
-	makeStyles, 
-	Card, 
-	CardActions, 
-	CardContent, 
-	Button, 
-	Typography, 
-	Box, 
-	IconButton
-} from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { makeStyles, Card, CardActions, CardContent, Button, Typography, Box, IconButton } from '@material-ui/core';
 
 import { withWeatherService } from '../hoc';
-import { fetchMyCityWeather } from '../../actions';
+import { fetchMyWeather } from '../../actions';
 import { compose } from '../../utils';
 
 const useStyles = makeStyles({
-    root: {
-	  maxWidth: 250,
-	  background: 
-	  	'linear-gradient(0deg, rgb(255 255 255 / 0%) 0%, #f7f7f7 50%, rgb(255 255 255 / 0%) 100%)',
-	  margin: 'auto',
-	  boxShadow: 'none',
-	  opacity: 0,
-	  animation: '$slide-bottom-cd 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.1s both'
+	card: {
+		maxWidth: 250,
+		background: 'linear-gradient(0deg, rgb(255 255 255 / 0%) 0%, #f7f7f7 50%, rgb(255 255 255 / 0%) 100%)',
+		margin: 'auto',
+		boxShadow: 'none',
+		opacity: 0,
+		animation: '$slide-bottom-cd 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.1s both',
 	},
 	'@keyframes slide-bottom-cd': {
-        '0%': {
-            transform: 'translateY(-200px)',
-        },
-        '100%': {
-            transform: 'translateY(0px)',
-            opacity: 1,
-        },
-      },
-	minMax: {
+		'0%': {
+			transform: 'translateY(-200px)',
+		},
+		'100%': {
+			transform: 'translateY(0px)',
+			opacity: 1,
+		},
+	},
+	boxMinMaxTemp: {
 		width: '60%',
 	},
-	bg: {
-		fontFamily: `'Merriweather', serif`
+	typogrMinMaxTemp: {
+		fontFamily: `'Merriweather', serif`,
 	},
 	buttons: {
 		paddingTop: 0,
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
 	},
-	fontTemp: {
+	typogrTemp: {
 		fontSize: 60,
-	  ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
-		fontSize: 45
-	  },
+		'@media (max-width:960px)': {
+			fontSize: 45,
+		},
 	},
-	fontCity: {
+	typogrCityName: {
 		fontSize: 24,
-	  ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
-		fontSize: 20
-	  },
-	  fontFamily: `'Roboto Slab', serif`
-	}
-  });
+		'@media (max-width:960px)': {
+			fontSize: 20,
+		},
+		fontFamily: `'Roboto Slab', serif`,
+	},
+});
 
-const CityListItem = ({cityData, deleteCityItem, fetchMyCityWeather}) => {
-	const {coord, name, t, feels_like, temp_min, temp_max, icon } = cityData;
+const CityListItem = ({ cityData, deleteCityItem, fetchMyCityWeather }) => {
+	const { coord, name, t, feels_like, temp_min, temp_max, icon } = cityData;
 	const classes = useStyles();
 
 	const deleteItem = () => {
-		const storageArr = JSON.parse(localStorage.getItem('citisData'));
-		const newStorageArr = storageArr.filter((item) => item.id !== deleteCityItem().payload);
-		localStorage.setItem('citisData', JSON.stringify(newStorageArr));		
-	}
+		const localStArr = JSON.parse(localStorage.getItem('citisData'));
+		const newLocalStArr = localStArr.filter((item) => item.id !== deleteCityItem().payload);
+		localStorage.setItem('citisData', JSON.stringify(newLocalStArr));
+	};
 
 	const sessionStoragePushitem = () => {
-		const sesStorData = {
+		const sessionStData = {
 			...coord,
-			name: name
-		}
-		sessionStorage.setItem('myCity', JSON.stringify(sesStorData))
-			fetchMyCityWeather();
-	}
+			name: name,
+		};
+		sessionStorage.setItem('myCity', JSON.stringify(sessionStData));
+		fetchMyCityWeather();
+	};
 
-    return (
-		<Card className={classes.root}>
+	return (
+		<Card className={classes.card}>
 			<CardContent>
 				<Box>
-					<Box display="flex" justifyContent="space-evenly" alignItems="center">
-						<img src={`https://openweathermap.org/img/w/${icon}.png`} alt='Icon current weather'/>
-						<Typography className={classes.fontTemp} variant="h2">
+					<Box display='flex' justifyContent='space-evenly' alignItems='center'>
+						<img src={`https://openweathermap.org/img/w/${icon}.png`} alt='Icon current' />
+						<Typography className={classes.typogrTemp} variant='h2'>
 							{t}&#8451;
 						</Typography>
 					</Box>
-					<Typography className={classes.bg} variant="subtitle2">
-						Feels Like:  {feels_like}&#8451;
+					<Typography className={classes.bg} variant='subtitle2'>
+						Feels Like: {feels_like}&#8451;
 					</Typography>
 				</Box>
-				<Typography className={classes.fontCity} variant="h5" component="h1">
+				<Typography className={classes.typogrCityName} variant='h5' component='h1'>
 					{name}
 				</Typography>
-				<Box display="flex" justifyContent="space-between" className={classes.minMax}>
-					<Typography variant="body2" component="p" className={classes.bg}>
+				<Box display='flex' justifyContent='space-between' className={classes.boxMinMaxTemp}>
+					<Typography variant='body2' component='p' className={classes.typogrMinMaxTemp}>
 						min: {temp_min}&#8451;
 					</Typography>
-					<Typography variant="body2" component="p" className={classes.bg}>
+					<Typography variant='body2' component='p' className={classes.typogrMinMaxTemp}>
 						max: {temp_max}&#8451;
 					</Typography>
 				</Box>
 			</CardContent>
-			<CardActions className={classes.buttons}>			
-				<Link to="/cart" onClick={sessionStoragePushitem}>
-					<Button size="small">
-						Detail inf...
-					</Button>
+			<CardActions className={classes.buttons}>
+				<Link to='/cart' onClick={sessionStoragePushitem}>
+					<Button size='small'>Detail inf...</Button>
 				</Link>
-				<IconButton onClick={deleteItem} aria-label="delete" size="small">
-					<HighlightOffIcon fontSize="small"/>
-        		</IconButton>
+				<IconButton onClick={deleteItem} aria-label='delete' size='small'>
+					<HighlightOffIcon fontSize='small' />
+				</IconButton>
 			</CardActions>
-        </Card>
-    );
-}
+		</Card>
+	);
+};
 
 const mapSrateToProps = ({ myCityWeather, loading }) => {
-    return { myCityWeather, loading }
-}
+	return { myCityWeather, loading };
+};
 
 const mapDispatchToProps = (dispatch, { weatherService }) => {
-    return {
-        fetchMyCityWeather: fetchMyCityWeather(weatherService, dispatch)
-    }
-}
+	return {
+		fetchMyCityWeather: fetchMyWeather(weatherService, dispatch),
+	};
+};
 
-export default compose(
-	withWeatherService(),
-	connect(mapSrateToProps, mapDispatchToProps)
-)(CityListItem);
+export default compose(withWeatherService(), connect(mapSrateToProps, mapDispatchToProps))(CityListItem);

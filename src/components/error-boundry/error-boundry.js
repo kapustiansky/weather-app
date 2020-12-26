@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import ErrorIndicator from '../error-indicator';
 class ErroBoundry extends Component {
 	state = {
-		hasError: false
-	}
+		hasError: false,
+	};
 
 	componentDidCatch() {
 		this.setState({
-			hasError: true
+			hasError: true,
 		});
 	}
 
 	render() {
 		if (this.state.hasError) {
-			return <ErrorIndicator /> 
+			return <ErrorIndicator />;
 		}
 
 		return this.props.children;

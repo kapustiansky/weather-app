@@ -7,26 +7,27 @@ const theme = createMuiTheme({
 		primary: {
 			main: '#afafaf',
 		},
-  }})
+	},
+});
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-	  width: '100%',
-	  '& > * + *': {
-		marginTop: theme.spacing(2),
-	  },
+		width: '100%',
+		'& > * + *': {
+			marginTop: theme.spacing(2),
+		},
 	},
-  }));
+}));
 
 const Spinner = () => {
 	const classes = useStyles();
 	return (
 		<ThemeProvider theme={theme}>
-			<div className={classes.root} >
-				<LinearProgress color="primary" />
+			<div className={classes.root}>
+				<LinearProgress color='primary' />
 			</div>
 		</ThemeProvider>
-	)
-}
+	);
+};
 
 export default Spinner;

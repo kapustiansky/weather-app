@@ -1,5 +1,3 @@
 import withWeatherService from './with-weather-service';
 
-export {
-	withWeatherService
-};
+export { withWeatherService };
