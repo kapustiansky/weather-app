@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/weather-app/static/css/main.c5c2ff2f.chunk.css",
+    "main.css": "/weather-app/static/css/main.3d7971d9.chunk.css",
     "main.js": "/weather-app/static/js/main.61a86cd4.chunk.js",
     "main.js.map": "/weather-app/static/js/main.61a86cd4.chunk.js.map",
     "runtime-main.js": "/weather-app/static/js/runtime-main.82f69e55.js",
@@ -8,7 +8,7 @@
     "static/js/2.f0639f0f.chunk.js": "/weather-app/static/js/2.f0639f0f.chunk.js",
     "static/js/2.f0639f0f.chunk.js.map": "/weather-app/static/js/2.f0639f0f.chunk.js.map",
     "index.html": "/weather-app/index.html",
-    "static/css/main.c5c2ff2f.chunk.css.map": "/weather-app/static/css/main.c5c2ff2f.chunk.css.map",
+    "static/css/main.3d7971d9.chunk.css.map": "/weather-app/static/css/main.3d7971d9.chunk.css.map",
     "static/js/2.f0639f0f.chunk.js.LICENSE.txt": "/weather-app/static/js/2.f0639f0f.chunk.js.LICENSE.txt",
     "static/media/Humidity.901294ef.svg": "/weather-app/static/media/Humidity.901294ef.svg",
     "static/media/Pressure.1b227373.svg": "/weather-app/static/media/Pressure.1b227373.svg",
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.82f69e55.js",
     "static/js/2.f0639f0f.chunk.js",
-    "static/css/main.c5c2ff2f.chunk.css",
+    "static/css/main.3d7971d9.chunk.css",
     "static/js/main.61a86cd4.chunk.js"
   ]
 }
