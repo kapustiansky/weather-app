@@ -48,8 +48,9 @@ class CityAddForm extends Component {
 	};
 
 	handleSelect = (address) => {
-		this.setState({ address });
-		this.onClick();
+		this.setState({ address }, () => {
+			this.onClick();
+		});
 	};
 
 	onClick = () => {
