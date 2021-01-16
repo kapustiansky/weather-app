@@ -50,7 +50,7 @@ const MyCityDaily = ({ daily }) => {
 					weather: [iconData],
 				} = dailyWeather;
 				const fullDate = new Date(dt * 1000);
-				const month = fullDate.getMonth() + 1;
+				const month = (fullDate.getMonth() + 1 < 10 ? '0' : '') + (fullDate.getMonth() + 1);
 				const date = (fullDate.getDate() < 10 ? '0' : '') + fullDate.getDate();
 				const currentDate = `${date}.${month}`;
 				return (
