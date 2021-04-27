@@ -1,4 +1,4 @@
-Weather App</br> Technology: React, Redux, Material-UI, used OpenWeather API, used Google Map API.</br>
+Weather App (PWA)</br> Technology: React, Redux, Material-UI, used OpenWeather API, used Google Map API.</br>
 
 What is done:
 
