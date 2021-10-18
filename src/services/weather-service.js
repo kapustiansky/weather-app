@@ -9,8 +9,10 @@ class WeatherService {
 
 	async getCityItem(newCityItem) {
 		try {
-			const citisArray = localStorage.getItem('citisData') ? JSON.parse(localStorage.getItem('citisData')) : [];
-			const API_KAY = '9db1d496a91bad902ebeff185ff91bdf';
+			const citisArray = localStorage.getItem('citisData')
+				? JSON.parse(localStorage.getItem('citisData'))
+				: [];
+			const API_KAY = process.env.REACT_APP_WEATHER_KAY;
 			const cityValue = newCityItem.split(',')[0];
 			const URL = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${API_KAY}&units=metric`;
 			const response = await fetch(URL);
@@ -40,7 +42,9 @@ class WeatherService {
 
 			return cityWeather;
 		} catch (err) {
-			const error = new Error('No data for your city! Check if the entry is correct.');
+			const error = new Error(
+				'No data for your city! Check if the entry is correct.'
+			);
 			alert(error.message);
 		}
 	}
@@ -51,12 +55,14 @@ class WeatherService {
 		if (localStorage.getItem('citisData')) {
 			const citisArray = JSON.parse(localStorage.getItem('citisData'));
 			citisArray.map((item) => {
-				const API_KAY = '9db1d496a91bad902ebeff185ff91bdf';
+				const API_KAY = process.env.REACT_APP_WEATHER_KAY;
 				const URL = `https://api.openweathermap.org/data/2.5/weather?q=${item.name}&appid=${API_KAY}&units=metric`;
 				fetch(URL)
 					.then((response) => {
 						if (response.status !== 200) {
-							throw new Error('Something wrong! Reload the page.');
+							throw new Error(
+								'Something wrong! Reload the page.'
+							);
 						}
 						return response.json();
 					})
@@ -81,7 +87,9 @@ class WeatherService {
 						arr.push(cityWeather);
 					})
 					.catch((err) => {
-						if (err.message === 'Something wrong! Reload the page.') {
+						if (
+							err.message === 'Something wrong! Reload the page.'
+						) {
 							alert(err.message);
 						} else {
 							throw err;
